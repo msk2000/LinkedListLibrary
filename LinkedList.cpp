@@ -305,7 +305,7 @@ int main()
     std::cout << "List after re-adding elements:" << std::endl;
     myList.printList();
 
-    myList.deleteList(); // Final cleanup
+    
 
     return 0;
 }
