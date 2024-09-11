@@ -121,6 +121,95 @@ class LinkedList
 
     }
 
+    //Function to remove an element from the lsit
+    int removeElement(int targetIndex)
+    {
+        listElement* currentElement = head;
+
+        // Checking first if the list has anything in it
+        if(head == nullptr)
+        {
+            std::cout << "The list is empty! Cannot remove elements from an empty list!" <<std::endl;
+            return 1;
+        }
+        // Condition: Removing from the head
+        else if (targetIndex == 0)
+        {
+            listElement* targetElement; // For the subsequent manipulation
+
+            targetElement = currentElement; // the element we want to delete is assigned to targetelement
+            currentElement = currentElement->next; // move pointer to the next element
+            head = currentElement; // Reassign the head to the new element
+            targetElement->next = nullptr; // break the connection of the target to be removed from the rest of the list
+
+            std::cout<<"Removing Element ID " << targetElement->dataInt<<" from index" <<targetIndex<<std::endl;
+
+            delete targetElement; // get rid of it
+
+        }
+        // Condition: Removing from the tail
+        else if (targetIndex == -1)
+        {
+            // Special case where there is only one item in the list
+            if(head->next == nullptr)
+            {
+                std::cout << "Removing Element ID " << head->dataInt << " from index " << targetIndex << std::endl;
+                delete head; //remove the only element
+                head = nullptr; //set head to null to indicate empty list
+                return 0;
+            }
+
+            //Otherwise: If there are more than one item in the list
+
+            listElement* tempElement;   // Used to store the last element details after the loop ends
+
+            while(currentElement->next != nullptr)
+            {
+                tempElement = currentElement; // keeping a record of the most recently processed element
+                currentElement = currentElement->next; // Using the link to move to the next element per iteration
+            }
+
+            tempElement->next = nullptr; // since the last node to point to nullptr to indicate end of list
+
+            std::cout<<"Removing Element ID " << currentElement->dataInt<<" from index" <<targetIndex<<std::endl;
+
+            delete currentElement;
+        }
+        // Condition: Any other index 
+        else
+        {
+            listElement* tempElement;
+
+            for (int i = 0; i < targetIndex; i++)
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
     // Function to delete the list elements
     int deleteList()
     {
