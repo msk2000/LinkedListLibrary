@@ -142,7 +142,7 @@ class LinkedList
             head = currentElement; // Reassign the head to the new element
             targetElement->next = nullptr; // break the connection of the target to be removed from the rest of the list
 
-            std::cout<<"Removing Element ID " << targetElement->dataInt<<" from index" <<targetIndex<<std::endl;
+            std::cout<<"Removing Element ID " << targetElement->dataInt<<" from index " <<targetIndex<<std::endl;
 
             delete targetElement; // get rid of it
 
@@ -171,7 +171,7 @@ class LinkedList
 
             tempElement->next = nullptr; // since the last node to point to nullptr to indicate end of list
 
-            std::cout<<"Removing Element ID " << currentElement->dataInt<<" from index" <<targetIndex<<std::endl;
+            std::cout<<"Removing Element ID " << currentElement->dataInt<<" from index " <<targetIndex<<std::endl;
 
             delete currentElement;
         }
@@ -180,35 +180,27 @@ class LinkedList
         {
             listElement* tempElement;
 
-            for (int i = 0; i < targetIndex; i++)
+            for (int i = 0; i < targetIndex; i++) //traverses the linked list until it reaches the targetIndex position
+            {
+                if (currentElement->next == nullptr)
+                {
+                    std::cerr<<"Cannot remove element as index is out of bound!"<<std::endl;
+                    return 2;
+                }
+                tempElement = currentElement;// tempElement stores the previous node 
+                currentElement = currentElement->next; // currentElement moves to the next node
+            }
+            tempElement->next = currentElement->next;//tempElement (previous node) has its next pointer updated to skip the currentElement (target node). 
+
+            std::cout<<"Removing Element ID "<<currentElement->dataInt << " from index "<<targetIndex<<std::endl;
+
+            delete currentElement;
+
             
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return 0;
     }
     // Function to delete the list elements
     int deleteList()
@@ -275,21 +267,45 @@ int main()
     // Create a LinkedList object
     LinkedList myList;
 
-    // Add some elements to the list
-    myList.addElement(0, 1, "First Element");
-    myList.addElement(-1, 2, "Second Element"); // Add to the end of the list
-    myList.addElement(1, 3, "Third Element"); // Add to index 1
+    // Add elements to the list
+    std::cout << "Adding elements:" << std::endl;
+    myList.addElement(0, 1, "First Element");       // Add to head (index 0)
+    myList.addElement(-1, 2, "Second Element");     // Add to tail (index -1)
+    myList.addElement(1, 3, "Third Element");       // Add to index 1
+    myList.addElement(3, 4, "Fourth Element");      // Add to index 3 (end)
+    myList.addElement(2, 5, "Fifth Element");       // Add to index 2
+    myList.addElement(0, 6, "New Head");            // Add to new head (index 0)
+    myList.addElement(10, 7, "New Tail");            // Add to out of range index
 
     // Print the list contents
     std::cout << "List after adding elements:" << std::endl;
     myList.printList();
 
-    // Delete the list and verify deletion
-    myList.deleteList();
-    
-    // Try to print the list after deletion
-    std::cout << "List after deletion:" << std::endl;
+    // Remove elements from different positions
+    std::cout << "Removing elements:" << std::endl;
+    myList.removeElement(0); // Remove head
+    myList.removeElement(5); // Remove tail
+    myList.removeElement(2); // Remove element from middle
+    myList.removeElement(0); // Remove new head (after previous removals)
+
+    // Print the list contents
+    std::cout << "List after some removals:" << std::endl;
     myList.printList();
+
+    // Attempt to remove from an empty list (should handle gracefully)
+    std::cout << "Attempting to remove from an empty list:" << std::endl;
+    myList.deleteList(); // Ensure list is empty
+    myList.removeElement(0); // Attempt to remove from empty list
+
+    // Add and remove elements again to test consistency
+    myList.addElement(0, 8, "New Element After Empty"); // Add to head
+    myList.addElement(-1, 9, "Another Element");       // Add to tail
+    myList.addElement(1, 10, "Middle Element");        // Add to middle
+
+    std::cout << "List after re-adding elements:" << std::endl;
+    myList.printList();
+
+    myList.deleteList(); // Final cleanup
 
     return 0;
 }
