@@ -258,6 +258,43 @@ class LinkedList
         }
     }
 
+    //Function to find by index
+    listElement* indexSearch(int targetIndex)
+    {
+        // Pointer for traversing from the head like before
+        listElement* currentElement = head;
+
+        // Check for invalid index
+        if (targetIndex < 0)
+        {
+            std::cerr << "ERROR: Index cannot be negative." << std::endl;
+            return nullptr;
+        }
+
+        // In case the list is empty
+        if (currentElement == nullptr)
+        {
+            std::cout<<"!!!!!! The List is Empty! Search Operation Cancelled!!!!"<<std::endl;
+            return nullptr;
+        }
+
+        // Otherwise go ahead..
+        // Traverse to the target index
+        for (int i = 0; i < targetIndex; i++)
+        {
+            //cconfirm index is not out of bound
+            if (currentElement->next == nullptr)
+            {
+                std::cerr<<"ERROR: Index is out of bound, element not found"<<std::endl;
+                return nullptr;
+            }
+            //move the pointer one step forward
+            currentElement = currentElement->next;
+        }
+        std::cout<<"Element found! Index: "<< targetIndex<<" is located under ID "<<currentElement->dataInt<<", String: "<<currentElement->dataName<<std::endl;
+        // For loop ends rightr before the target index so the last line in it takes us to the target element
+        return currentElement;
+    }
 };
 
 
@@ -302,10 +339,14 @@ int main()
     myList.addElement(-1, 9, "Another Element");       // Add to tail
     myList.addElement(1, 10, "Middle Element");        // Add to middle
 
+    myList.indexSearch(2);                              // Search for an existing index
+    myList.indexSearch(-4);                             // SEarch for an invalid negative index
+    myList.indexSearch(4);                              // Search for an out of bound index
+
     std::cout << "List after re-adding elements:" << std::endl;
     myList.printList();
 
-    
+
 
     return 0;
 }
