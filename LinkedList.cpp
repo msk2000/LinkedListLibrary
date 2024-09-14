@@ -295,6 +295,43 @@ class LinkedList
         // For loop ends rightr before the target index so the last line in it takes us to the target element
         return currentElement;
     }
+
+    //Function to find a node containing certain data (only ID in this instance)
+    int findData(int targetID)
+    {
+        listElement* currentElement = head;
+        int index = 0;
+        int flag = 0;
+
+        if (currentElement == nullptr) // empty list
+        {
+            std::cerr<<"!!!List is Empty! Search Cancelled!"<<std::endl;
+            return 1;
+        }
+
+        //Traverse the list
+        while (currentElement != nullptr)
+        {
+            if(currentElement->dataInt == targetID)
+            {
+                std::cout<<"Element found with ID: "<<currentElement->dataInt<<" at index "<<index<<". Data: "<<currentElement->dataName<<std::endl;
+                flag = 1;
+            }
+            index++;
+            currentElement = currentElement->next;
+            
+        }
+        if(flag != 1)
+        {
+            std::cout<<"Unable to find the targetID "<<targetID<< " in the list. No Records Exist!"<<std::endl;
+            return -1;
+        }
+
+        
+                
+            
+        return 0;
+    }
 };
 
 
@@ -342,6 +379,10 @@ int main()
     myList.indexSearch(2);                              // Search for an existing index
     myList.indexSearch(-4);                             // SEarch for an invalid negative index
     myList.indexSearch(4);                              // Search for an out of bound index
+
+    myList.findData(8);                                 // Search for data by ID for existing ID
+    myList.findData(20);                                // SEarch for data by ID for non-existing ID
+    
 
     std::cout << "List after re-adding elements:" << std::endl;
     myList.printList();
