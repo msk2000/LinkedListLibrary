@@ -34,7 +34,7 @@ class LinkedList
     }
 
 
-    // Getter and Setter functions for the "next"
+  /*  // Getter and Setter functions for future implementation. 
     listElement* getNext(listElement* element)
     {
         return element->next;
@@ -54,7 +54,7 @@ class LinkedList
     {
         return element->dataName;
     }
-
+*/
     // General functions \\
 
     // Function to add an element to the list
